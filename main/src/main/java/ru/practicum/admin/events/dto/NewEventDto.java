@@ -16,7 +16,7 @@ public class NewEventDto {
     private Category category;
     private String description;
     private LocalDateTime eventDate;
-    private Location location;
+    private Location location;//почему этого поля нет в Event?
     private Boolean paid;
     private int participantLimit;
     private Boolean requestModeration;

@@ -1,13 +1,11 @@
 package ru.practicum.admin.events.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import ru.practicum.admin.categories.Category;
-import ru.practicum.admin.users.User;
-import ru.practicum.admin.users.UserShortDto.UserShortDto;
+import ru.practicum.admin.users.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
