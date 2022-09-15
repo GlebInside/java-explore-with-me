@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import ru.practicum.HitsCount;
 import ru.practicum.model.Stats;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
+
 public interface StatsRepository extends JpaRepository<Stats, Integer> {
     //    Collection<Stats> findByTimestampBetweenAndUriIn(int start, int end, String[] uris);
     @Query("" +
@@ -18,6 +21,6 @@ public interface StatsRepository extends JpaRepository<Stats, Integer> {
             " group by s.app, s.uri" +
             "" +
             "")
-    HitsCount getHits(int start, int end, String uri);
+    Collection<HitsCount> getHits(LocalDateTime start, LocalDateTime end, String uri);
 
 }

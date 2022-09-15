@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 
@@ -33,16 +35,16 @@ public class StatsClient extends BaseClient {
         var dto = new EndpointHit();
         dto.setApp("explore-with-me");
         dto.setIp(ip);
-        dto.setTimestamp((int) (new Date().getTime() / 1000));
+        dto.setTimestamp(LocalDateTime.now());
         dto.setUri(uri);
         post("/hit", dto);
     }
 
-    public ViewStats getStats(int start, int end, String uri) throws JsonProcessingException {
+    public ViewStats getStats(LocalDateTime start, LocalDateTime end, String uri) throws JsonProcessingException {
         var objectMapper = new ObjectMapper();
-        var e = get("/stats", Map.of("start", start, "end", end, "uris", uri));
+        var e = get("/stats", null, Map.of("start", URLEncoder.encode(start.toString()), "end", end, "uris", uri));
         var json = e.getBody();
-        var viewStats = objectMapper.readValue((String) json, ViewStats.class);
-        return viewStats;
+        var viewStats = objectMapper.readValue((String) json, ViewStats[].class);
+        return viewStats[0];
     }
 }

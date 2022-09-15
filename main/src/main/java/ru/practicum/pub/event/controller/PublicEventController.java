@@ -42,7 +42,9 @@ public class PublicEventController {
     @GetMapping("/{eventId}")
     public EventFullDto getEvent(@PathVariable int eventId, HttpServletRequest request) throws JsonProcessingException {
         statsClient.saveHit(request.getRemoteAddr(), request.getRequestURI());
-        var viewStats = statsClient.getStats(0, Integer.MAX_VALUE, request.getRequestURI());
-        return publicEventService.getFullDtoById(eventId);
+        var viewStats = statsClient.getStats(LocalDateTime.of(1900, 1, 1, 0, 0), LocalDateTime.of(3000, 1, 1, 0, 0), request.getRequestURI());
+        var event = publicEventService.getFullDtoById(eventId);
+        event.setViews(viewStats.getHits());
+        return event;
     }
 }

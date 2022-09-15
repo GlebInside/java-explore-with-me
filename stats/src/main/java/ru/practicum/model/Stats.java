@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.net.URI;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,5 +20,5 @@ public class Stats {
     private String app;
     private String uri;
     private String ip;
-    private int timestamp;
+    private LocalDateTime timestamp;
 }

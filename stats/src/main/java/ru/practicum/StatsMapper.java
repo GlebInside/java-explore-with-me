@@ -4,6 +4,8 @@ import ru.practicum.dto.EndpointHit;
 import ru.practicum.dto.ViewStats;
 import ru.practicum.model.Stats;
 
+import java.util.Collection;
+
 public class StatsMapper {
 
     public static Stats fromDto(EndpointHit dto) {

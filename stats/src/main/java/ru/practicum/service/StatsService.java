@@ -8,30 +8,35 @@ import ru.practicum.dto.EndpointHit;
 import ru.practicum.dto.ViewStats;
 import ru.practicum.repository.StatsRepository;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Component
 public class StatsService {
 
     private final StatsRepository statsRepository;
+
     public void saveHit(EndpointHit dto) {
         statsRepository.saveAndFlush(StatsMapper.fromDto(dto));
     }
 
-    public Collection<ViewStats> getStats(int start, int end, String[] uris, boolean unique) {
+    public Collection<ViewStats> getStats(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
         return Arrays.stream(uris)
-                .map(uri->processUri(start, end, uri))
+                .flatMap(
+                        uri -> processUri(start, end, uri))
 //                .map(x->StatsMapper.toViewStats(x, uri))
                 .collect(Collectors.toList());
     }
 
-    private ViewStats processUri(int start, int end, String uri) {
-        var hitsCount = statsRepository.getHits(start, end, uri);
-        if(hitsCount == null) {
-            hitsCount = new HitsCount() {
+    private Stream<ViewStats> processUri(LocalDateTime start, LocalDateTime end, String uri) {
+        var hitsCounts = statsRepository.getHits(start, end, uri);
+        if (hitsCounts.size() == 0) {
+            var hitsCount = new HitsCount() {
                 @Override
                 public int getHitsCount() {
                     return 0;
@@ -47,7 +52,8 @@ public class StatsService {
                     return uri;
                 }
             };
+            hitsCounts = List.of(hitsCount);
         }
-        return StatsMapper.toViewStats(hitsCount);
+        return hitsCounts.stream().map(StatsMapper::toViewStats) ;
     }
 }
