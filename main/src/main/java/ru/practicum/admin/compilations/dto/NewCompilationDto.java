@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewCompilationDto {
-    //    private EventShortDto events;//тут так же невозможно выбрать тип Dto. В схеме указан просто int без EventShortDto, описание походе на такое же поле в классе Compilation, поэтому я решил, что тут тоже должен быть такой же тип
+
+    private int[] events;
     private Boolean pinned;
     private String title;
 }

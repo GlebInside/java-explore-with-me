@@ -1,10 +1,9 @@
 package ru.practicum.admin.events.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.admin.categories.Category;
-import ru.practicum.admin.events.Location;
 
 import java.time.LocalDateTime;
 
@@ -13,12 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class NewEventDto {
     private String annotation;
-    private Category category;
+    private int category;
     private String description;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
-    private Location location;//почему этого поля нет в Event?
+    private Location location;
     private Boolean paid;
-    private int participantLimit;
-    private Boolean requestModeration;
+    private int participantLimit = 0;
+    private Boolean requestModeration = true;
     private String title;
 }
