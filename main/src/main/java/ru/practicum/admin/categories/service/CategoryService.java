@@ -12,6 +12,7 @@ import ru.practicum.admin.categories.storage.CategoryRepository;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+
     public CategoryDto addNew(CategoryDto categoryDto) {
         var category = CategoryMapper.fromDto(categoryDto);
         var added = categoryRepository.saveAndFlush(category);

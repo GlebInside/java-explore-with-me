@@ -19,7 +19,7 @@ public class Request {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
     @JoinColumn(name = "event_id")
@@ -28,7 +28,6 @@ public class Request {
     @JoinColumn(name = "requester_id")
     private User requester;
     private Status status = Status.PENDING;
-//    @Column(insertable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime created;
 }

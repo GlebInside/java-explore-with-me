@@ -29,7 +29,6 @@ public class StatsService {
         return Arrays.stream(uris)
                 .flatMap(
                         uri -> processUri(start, end, uri))
-//                .map(x->StatsMapper.toViewStats(x, uri))
                 .collect(Collectors.toList());
     }
 
@@ -54,6 +53,6 @@ public class StatsService {
             };
             hitsCounts = List.of(hitsCount);
         }
-        return hitsCounts.stream().map(StatsMapper::toViewStats) ;
+        return hitsCounts.stream().map(StatsMapper::toViewStats);
     }
 }

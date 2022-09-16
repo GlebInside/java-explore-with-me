@@ -1,7 +1,6 @@
 package ru.practicum.admin.compilations.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.compilations.CompilationMapper;
 import ru.practicum.admin.compilations.dto.CompilationDto;
@@ -11,7 +10,6 @@ import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.event.service.PublicEventService;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -30,13 +28,6 @@ public class CompilationService {
         return CompilationMapper.fromModel(added);
     }
 
-
-    //    public UserDto update(UserDto dto) {
-//        var model = repository.getReferenceById(dto.getId());
-//        CompilationMapper.updateFromDto(dto, model);
-//        return CompilationMapper.fromModel(repository.saveAndFlush(model));
-//    }
-//
     public void delete(int id) {
         if (!repository.existsById(id)) {
             throw new NotFoundException("missing item with id " + id);

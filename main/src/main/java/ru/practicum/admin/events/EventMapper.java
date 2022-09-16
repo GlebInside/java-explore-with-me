@@ -8,7 +8,6 @@ import ru.practicum.admin.users.UserMapper;
 import ru.practicum.admin.users.model.User;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 
-//@AllArgsConstructor
 public class EventMapper {
     public static Event createFromDto(NewEventDto dto, User initiator, Category category) {
         var model = new Event();
@@ -19,7 +18,7 @@ public class EventMapper {
         model.setEventDate(dto.getEventDate());
         model.setInitiator(initiator);
         model.setPaid(dto.getPaid());
-        if(dto.getLocation() != null) {
+        if (dto.getLocation() != null) {
             model.setLat(dto.getLocation().getLat());
             model.setLon(dto.getLocation().getLon());
         }
@@ -65,56 +64,56 @@ public class EventMapper {
     }
 
     public static void updateFromRequest(UpdateEventRequest dto, Event model, Category category) {
-        if(dto.getPaid() != null) {
+        if (dto.getPaid() != null) {
             model.setPaid(dto.getPaid());
         }
-        if(category != null) {
+        if (category != null) {
             model.setCategory(category);
         }
-        if(dto.getEventDate() != null) {
+        if (dto.getEventDate() != null) {
             model.setEventDate(dto.getEventDate());
         }
-        if(dto.getAnnotation() != null) {
+        if (dto.getAnnotation() != null) {
             model.setAnnotation(dto.getAnnotation());
         }
-        if(dto.getDescription() != null) {
+        if (dto.getDescription() != null) {
             model.setDescription(dto.getDescription());
         }
-        if(dto.getTitle() != null) {
+        if (dto.getTitle() != null) {
             model.setTitle(dto.getTitle());
         }
-        if(dto.getParticipantLimit() != null) {
+        if (dto.getParticipantLimit() != null) {
             model.setParticipantLimit(dto.getParticipantLimit());
         }
     }
 
     public static Event updateFromAdminRequest(Event model, AdminUpdateEventRequest dto, Category category) {
-        if(dto.getPaid() != null) {
+        if (dto.getPaid() != null) {
             model.setPaid(dto.getPaid());
         }
-        if(category != null) {
+        if (category != null) {
             model.setCategory(category);
         }
-        if(dto.getEventDate() != null) {
+        if (dto.getEventDate() != null) {
             model.setEventDate(dto.getEventDate());
         }
-        if(dto.getAnnotation() != null) {
+        if (dto.getAnnotation() != null) {
             model.setAnnotation(dto.getAnnotation());
         }
-        if(dto.getDescription() != null) {
+        if (dto.getDescription() != null) {
             model.setDescription(dto.getDescription());
         }
-        if(dto.getTitle() != null) {
+        if (dto.getTitle() != null) {
             model.setTitle(dto.getTitle());
         }
-        if(dto.getParticipantLimit() != null) {
+        if (dto.getParticipantLimit() != null) {
             model.setParticipantLimit(dto.getParticipantLimit());
         }
-        if(dto.getLocation() != null) {
+        if (dto.getLocation() != null) {
             model.setLon(dto.getLocation().getLon());
             model.setLat(dto.getLocation().getLat());
         }
-        if(dto.getRequestModeration() != null) {
+        if (dto.getRequestModeration() != null) {
             model.setRequestModeration(dto.getRequestModeration());
         }
         return model;

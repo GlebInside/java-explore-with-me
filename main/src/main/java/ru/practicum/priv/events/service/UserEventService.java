@@ -24,6 +24,7 @@ public class UserEventService {
     private final UserService userService;
     private final CategoryService categoryService;
     private final UserEventRepository repository;
+
     public EventFullDto addNew(int userId, NewEventDto dto) {
         var model = EventMapper.createFromDto(dto, userService.getById(userId), categoryService.getById(dto.getCategory()));
         var added = repository.saveAndFlush(model);
@@ -31,7 +32,7 @@ public class UserEventService {
     }
 
     public void delete(int id) {
-        if(!repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new NotFoundException("missing item with id " + id);
         }
         var model = repository.getReferenceById(id);
@@ -39,16 +40,16 @@ public class UserEventService {
     }
 
     public Collection<EventShortDto> get(int userId, int from, int size) {
-       return repository.findByInitiator(userService.getById(userId), PageRequest.of(from, size)).stream().map(EventMapper::toShortDto).collect(Collectors.toList());
+        return repository.findByInitiator(userService.getById(userId), PageRequest.of(from, size)).stream().map(EventMapper::toShortDto).collect(Collectors.toList());
     }
 
     public EventFullDto update(int userId, UpdateEventRequest dto) {
         var model = repository.getReferenceById(dto.getEventId());
-        if(model.getInitiator().getId() != userId) {
+        if (model.getInitiator().getId() != userId) {
             throw new NotFoundException("this event doesn't belong to this user");
         }
         Category category = null;
-        if(dto.getCategory() != null) {
+        if (dto.getCategory() != null) {
             category = categoryService.getById(dto.getCategory());
         }
         EventMapper.updateFromRequest(dto, model, category);
@@ -57,7 +58,7 @@ public class UserEventService {
 
     public EventFullDto get(int userId, int eventId) {
         var model = repository.getReferenceById(eventId);
-        if(model.getInitiator().getId() != userId) {
+        if (model.getInitiator().getId() != userId) {
             throw new NotFoundException("this event doesn't belong to this user");
         }
         return EventMapper.toFullDto(model);

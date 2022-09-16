@@ -17,7 +17,7 @@ public class PublicCompilationService {
     private final CompilationRepository repository;
 
     public Collection<CompilationDto> find(Boolean pinned, int from, int size) {
-        if(pinned == null) {
+        if (pinned == null) {
             return repository.findAll(PageRequest.of(from, size)).stream().map(CompilationMapper::fromModel).collect(Collectors.toList());
         }
         return repository.findByPinned(pinned, PageRequest.of(from, size)).stream().map(CompilationMapper::fromModel).collect(Collectors.toList());

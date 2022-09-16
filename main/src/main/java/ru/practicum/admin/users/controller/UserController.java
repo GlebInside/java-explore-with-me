@@ -19,6 +19,7 @@ import java.util.Collection;
 public class UserController {
 
     private final UserService userService;
+
     @PostMapping
     public UserDto addNew(@RequestBody UserDto dto) {
         try {
@@ -27,6 +28,7 @@ public class UserController {
             throw new BadRequestException(e.getMessage());
         }
     }
+
     @PatchMapping
     public UserDto update(@RequestBody UserDto dto) {
         try {
@@ -37,6 +39,7 @@ public class UserController {
             throw new BadRequestException(e.getMessage());
         }
     }
+
     @GetMapping
     public Collection<UserDto> get(@RequestParam(defaultValue = "0") int from, @RequestParam(defaultValue = "100") Integer size) {
         return userService.get(from, size);

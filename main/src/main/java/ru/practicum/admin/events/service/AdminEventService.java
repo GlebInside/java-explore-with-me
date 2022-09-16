@@ -24,7 +24,7 @@ public class AdminEventService {
     private final CategoryService categoryService;
 
     public Collection<EventFullDto> getAllEvents() {
-       return eventRepository.findAll().stream().sorted(Comparator.comparing(Event::getId).reversed()).map(EventMapper::toFullDto).collect(Collectors.toList());
+        return eventRepository.findAll().stream().sorted(Comparator.comparing(Event::getId).reversed()).map(EventMapper::toFullDto).collect(Collectors.toList());
     }
 
     public Event getById(int eventId) {
@@ -46,11 +46,10 @@ public class AdminEventService {
 
     public EventFullDto reject(int eventId) {
         var model = eventRepository.getReferenceById(eventId);
-        if(model.getState() != State.PENDING) {
+        if (model.getState() != State.PENDING) {
             throw new BadRequestException("Only pending or canceled events can be changed");
         }
         model.setState(State.CANCELED);
-//        model.setPublishedOn(LocalDateTime.now());
         return EventMapper.toFullDto(eventRepository.saveAndFlush(model));
     }
 }

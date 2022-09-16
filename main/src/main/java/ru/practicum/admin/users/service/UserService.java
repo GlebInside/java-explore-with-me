@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository repository;
+
     public UserDto addNew(UserDto dto) {
         var model = UserMapper.createFromDto(dto);
         var added = repository.saveAndFlush(model);
@@ -30,7 +31,7 @@ public class UserService {
     }
 
     public void delete(int id) {
-        if(!repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new NotFoundException("missing user with id " + id);
         }
         var model = repository.getReferenceById(id);

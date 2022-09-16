@@ -42,14 +42,7 @@ public class PublicEventService {
             rangeStart = LocalDateTime.now();
         }
         var events = publicEventRepository.find(
-                state.ordinal()
-                , onlyAvailable
-                , text != null, text != null ? text.toLowerCase() : null
-                , strCategories != null, categories
-                , paid != null, paid
-                , rangeStart != null, rangeStart
-                , rangeEnd != null, rangeEnd
-                , PageRequest.of(from, size)
+                state.ordinal(), onlyAvailable, text != null, text != null ? text.toLowerCase() : null, strCategories != null, categories, paid != null, paid, rangeStart != null, rangeStart, rangeEnd != null, rangeEnd, PageRequest.of(from, size)
         ).stream().map(EventMapper::toShortDto);
         if (eventSort != null) {
             if (eventSort == EVENT_DATE) {
@@ -74,7 +67,7 @@ public class PublicEventService {
             throw new NotFoundException("Event with eventId " + eventId + " was not found.");
         }
         var model = getById(eventId);
-        if(model.getState() != State.PUBLISHED) {
+        if (model.getState() != State.PUBLISHED) {
             throw new NotFoundException("Event with eventId " + eventId + " was not found.");
         }
         return EventMapper.toFullDto(model);

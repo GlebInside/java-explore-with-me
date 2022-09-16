@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.categories.dto.CategoryDto;
 import ru.practicum.admin.categories.service.CategoryService;
 import ru.practicum.exception.BadRequestException;
-import ru.practicum.exception.InternalServerErrorException;
 import ru.practicum.exception.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,6 +18,7 @@ import javax.persistence.EntityNotFoundException;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
     @PostMapping
     public CategoryDto addNewCategory(@RequestBody CategoryDto categoryDto) {
         try {
@@ -27,6 +27,7 @@ public class CategoryController {
             throw new BadRequestException(e.getMessage());
         }
     }
+
     @PatchMapping
     public CategoryDto updateCategory(@RequestBody CategoryDto categoryDto) {
         try {
@@ -37,6 +38,7 @@ public class CategoryController {
             throw new BadRequestException(e.getMessage());
         }
     }
+
     @DeleteMapping("/{catId}")
     public void deleteCategory(@PathVariable int catId) {
         categoryService.delete(catId);

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 public interface StatsRepository extends JpaRepository<Stats, Integer> {
-    //    Collection<Stats> findByTimestampBetweenAndUriIn(int start, int end, String[] uris);
     @Query("" +
             "select" +
             " count (s.id) as hitsCount" +

@@ -13,7 +13,6 @@ import ru.practicum.statsClient.StatsClient;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Collection;
 
 @RestController
@@ -25,16 +24,7 @@ public class PublicEventController {
     private final StatsClient statsClient;
 
     @GetMapping
-    public Collection<EventShortDto> getAllEventsForFiltration(@RequestParam(required = false) String text
-            , @RequestParam(required = false) String[] categories
-            , @RequestParam(required = false) Boolean paid
-            , @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeStart
-            , @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeEnd
-            , @RequestParam(defaultValue = "false") boolean onlyAvailable
-            , @RequestParam(required = false) EventSort eventSort
-            , @RequestParam(defaultValue = "0") int from
-            , @RequestParam(defaultValue = "10") int size,
-                                                               HttpServletRequest request) {
+    public Collection<EventShortDto> getAllEventsForFiltration(@RequestParam(required = false) String text, @RequestParam(required = false) String[] categories, @RequestParam(required = false) Boolean paid, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeStart, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeEnd, @RequestParam(defaultValue = "false") boolean onlyAvailable, @RequestParam(required = false) EventSort eventSort, @RequestParam(defaultValue = "0") int from, @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
         statsClient.saveHit(request.getRemoteAddr(), request.getRequestURI());
         return publicEventService.find(text, State.PUBLISHED, categories, paid, rangeStart, rangeEnd, onlyAvailable, eventSort, from, size);
     }
@@ -46,5 +36,6 @@ public class PublicEventController {
         var event = publicEventService.getFullDtoById(eventId);
         event.setViews(viewStats.getHits());
         return event;
+
     }
 }

@@ -19,6 +19,7 @@ import javax.persistence.EntityNotFoundException;
 public class CompilationController {
 
     private final CompilationService compilationService;
+
     @PostMapping
     public CompilationDto addNew(@RequestBody NewCompilationDto dto) {
         try {
@@ -27,6 +28,7 @@ public class CompilationController {
             throw new BadRequestException(e.getMessage());
         }
     }
+
     @PatchMapping("/{compilationId}/events/{eventId}")
     public CompilationDto addEvent(@PathVariable int compilationId, @PathVariable int eventId) {
         try {

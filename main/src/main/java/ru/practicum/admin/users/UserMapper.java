@@ -12,15 +12,15 @@ public class UserMapper {
         return model;
     }
 
-        public static User updateFromDto(UserDto dto, User model) {
-        if(dto.getName() != null) {
+    public static User updateFromDto(UserDto dto, User model) {
+        if (dto.getName() != null) {
             model.setName(dto.getName());
         }
-            if(dto.getName() != null) {
-                model.setEmail(dto.getEmail());
-            }
-            return model;
+        if (dto.getName() != null) {
+            model.setEmail(dto.getEmail());
         }
+        return model;
+    }
 
     public static UserDto fromModel(User model) {
         return new UserDto(model.getId(), model.getEmail(), model.getName());

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventFullDto {
+
     private int id;
     private String annotation;
     private CategoryDto category;

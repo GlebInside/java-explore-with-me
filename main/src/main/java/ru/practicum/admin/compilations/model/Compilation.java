@@ -18,7 +18,6 @@ public class Compilation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToMany
-//    @JoinColumn(name = "event_id")
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "event_id"), joinColumns = @JoinColumn(name = "compilation_id"), uniqueConstraints = {@UniqueConstraint(name = "unique_compilation_event", columnNames = {"event_id", "compilation_id"})})
     private List<Event> events;
     private Boolean pinned;

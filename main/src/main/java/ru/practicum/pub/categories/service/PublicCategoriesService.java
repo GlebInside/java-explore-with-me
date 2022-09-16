@@ -17,8 +17,8 @@ public class PublicCategoriesService {
     private final CategoryRepository repository;
 
     public Collection<CategoryDto> find(int from, int size) {
-            return repository.findAll(PageRequest.of(from, size)).stream().map(CategoryMapper::fromModel).collect(Collectors.toList());
-        }
+        return repository.findAll(PageRequest.of(from, size)).stream().map(CategoryMapper::fromModel).collect(Collectors.toList());
+    }
 
     public CategoryDto getById(int categoryId) {
         return CategoryMapper.fromModel(repository.getReferenceById(categoryId));

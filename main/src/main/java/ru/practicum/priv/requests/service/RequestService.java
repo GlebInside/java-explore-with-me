@@ -36,7 +36,7 @@ public class RequestService {
 
     public ParticipationRequestDto cancel(int requestId, int userId) {
         var model = requestRepository.getReferenceById(requestId);
-        if(model.getRequester().getId() != userId) {
+        if (model.getRequester().getId() != userId) {
             throw new NotFoundException("request id doesn't belong to this user");
         }
         model.setStatus(Status.CANCELED);
@@ -45,7 +45,7 @@ public class RequestService {
 
     public Collection<ParticipationRequestDto> getAllRequests(int initiatorId, int eventId) {
         var model = adminEventService.getById(eventId);
-        if(model.getInitiator().getId() != initiatorId) {
+        if (model.getInitiator().getId() != initiatorId) {
             throw new BadRequestException("this is not your event");
         }
         return requestRepository.findByEventId(eventId).stream().map(RequestMapper::fromModel).collect(Collectors.toList());
@@ -53,10 +53,10 @@ public class RequestService {
 
     public ParticipationRequestDto confirm(int initiatorId, int eventId, int requestId) {
         var model = requestRepository.getReferenceById(requestId);
-        if(model.getEvent().getId() != eventId) {
+        if (model.getEvent().getId() != eventId) {
             throw new BadRequestException("this event doesn't have such request");
         }
-        if(model.getEvent().getInitiator().getId() != initiatorId) {
+        if (model.getEvent().getInitiator().getId() != initiatorId) {
             throw new BadRequestException("wrong initiator");
         }
         model.setStatus(Status.CONFIRMED);
@@ -66,10 +66,10 @@ public class RequestService {
 
     public ParticipationRequestDto reject(int initiatorId, int eventId, int requestId) {
         var model = requestRepository.getReferenceById(requestId);
-        if(model.getEvent().getId() != eventId) {
+        if (model.getEvent().getId() != eventId) {
             throw new BadRequestException("this event doesn't have such request");
         }
-        if(model.getEvent().getInitiator().getId() != initiatorId) {
+        if (model.getEvent().getInitiator().getId() != initiatorId) {
             throw new BadRequestException("wrong initiator");
         }
         model.setStatus(Status.REJECTED);

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventShortDto {
+
     private String annotation;
     private CategoryDto category;
     private int confirmedRequests;

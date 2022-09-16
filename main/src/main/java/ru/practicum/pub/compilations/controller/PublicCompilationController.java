@@ -2,15 +2,10 @@ package ru.practicum.pub.compilations.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.compilations.dto.CompilationDto;
-import ru.practicum.admin.compilations.dto.NewCompilationDto;
-import ru.practicum.exception.BadRequestException;
-import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.compilations.service.PublicCompilationService;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
 @RestController
