@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.users.dto.UserDto;
-import ru.practicum.admin.users.service.UserService;
+import ru.practicum.admin.users.service.AdminUserService;
 import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 
@@ -16,14 +16,14 @@ import java.util.Collection;
 @RequestMapping(path = "/admin/users")
 @Slf4j
 @AllArgsConstructor
-public class UserController {
+public class AdminUserController {
 
-    private final UserService userService;
+    private final AdminUserService adminUserService;
 
     @PostMapping
     public UserDto addNew(@RequestBody UserDto dto) {
         try {
-            return userService.addNew(dto);
+            return adminUserService.addNew(dto);
         } catch (DataIntegrityViolationException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -32,7 +32,7 @@ public class UserController {
     @PatchMapping
     public UserDto update(@RequestBody UserDto dto) {
         try {
-            return userService.update(dto);
+            return adminUserService.update(dto);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         } catch (DataIntegrityViolationException e) {
@@ -42,11 +42,11 @@ public class UserController {
 
     @GetMapping
     public Collection<UserDto> get(@RequestParam(defaultValue = "0") int from, @RequestParam(defaultValue = "100") Integer size) {
-        return userService.get(from, size);
+        return adminUserService.get(from, size);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
-        userService.delete(id);
+        adminUserService.delete(id);
     }
 }

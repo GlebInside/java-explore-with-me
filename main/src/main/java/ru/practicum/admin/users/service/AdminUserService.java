@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.practicum.admin.users.UserMapper;
 import ru.practicum.admin.users.dto.UserDto;
 import ru.practicum.admin.users.model.User;
-import ru.practicum.admin.users.storage.UserRepository;
+import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.exception.NotFoundException;
 
 import java.util.Collection;
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component
-public class UserService {
+public class AdminUserService {
 
-    private final UserRepository repository;
+    private final AdminUserRepository repository;
 
     public UserDto addNew(UserDto dto) {
         var model = UserMapper.createFromDto(dto);

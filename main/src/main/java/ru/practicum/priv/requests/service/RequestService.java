@@ -3,7 +3,7 @@ package ru.practicum.priv.requests.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.events.service.AdminEventService;
-import ru.practicum.admin.users.service.UserService;
+import ru.practicum.admin.users.service.AdminUserService;
 import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.priv.requests.RequestMapper;
@@ -21,7 +21,7 @@ public class RequestService {
 
     private final RequestRepository requestRepository;
     private final AdminEventService adminEventService;
-    private final UserService userService;
+    private final AdminUserService adminUserService;
 
     public Collection<ParticipationRequestDto> getAllRequests(int requesterId) {
         return requestRepository.findByRequesterId(requesterId).stream().map(RequestMapper::fromModel).collect(Collectors.toList());
@@ -30,7 +30,7 @@ public class RequestService {
     public ParticipationRequestDto addNew(int eventId, int userId) {
         var model = new Request();
         model.setEvent(adminEventService.getById(eventId));
-        model.setRequester(userService.getById(userId));
+        model.setRequester(adminUserService.getById(userId));
         return RequestMapper.fromModel(requestRepository.saveAndFlush(model));
     }
 

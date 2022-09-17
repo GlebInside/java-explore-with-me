@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,4 +20,7 @@ public class User {
     @Column(unique = true)
     private String email;
     private String name;
+    @ManyToMany
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "subscriber_id"), joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(name = "unique_user_subscriber", columnNames = {"user_id", "subscriber_id"})})
+    private List<User> subscribers;
 }
