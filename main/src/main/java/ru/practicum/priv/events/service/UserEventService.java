@@ -2,7 +2,6 @@ package ru.practicum.priv.events.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.service.CategoryService;
@@ -20,7 +19,6 @@ import ru.practicum.priv.events.storage.UserEventRepository;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Component
