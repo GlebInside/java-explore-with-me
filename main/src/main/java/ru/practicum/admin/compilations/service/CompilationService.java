@@ -32,9 +32,6 @@ public class CompilationService {
     }
 
     public void delete(int id) {
-        if (!repository.existsById(id)) {
-            throw new NotFoundException("missing item with id " + id);
-        }
         var model = repository.getReferenceById(id);
         repository.delete(model);
     }

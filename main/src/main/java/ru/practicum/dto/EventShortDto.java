@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventShortDto {
 
+    private int id;
     private String annotation;
     private CategoryDto category;
     private int confirmedRequests;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
-    private int id;
     private UserShortDto initiator;
     private Boolean paid;
     private String title;
