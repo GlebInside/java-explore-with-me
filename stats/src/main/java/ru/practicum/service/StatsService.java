@@ -1,7 +1,8 @@
 package ru.practicum.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.HitsCount;
 import ru.practicum.StatsMapper;
 import ru.practicum.dto.EndpointHit;
@@ -15,12 +16,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@AllArgsConstructor
-@Component
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class StatsService {
 
     private final StatsRepository statsRepository;
 
+    @Transactional
     public void saveHit(EndpointHit dto) {
         statsRepository.saveAndFlush(StatsMapper.fromDto(dto));
     }

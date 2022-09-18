@@ -2,12 +2,13 @@ package ru.practicum.pub.event.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.events.EventMapper;
-import ru.practicum.dto.EventFullDto;
-import ru.practicum.dto.EventShortDto;
 import ru.practicum.admin.events.model.Event;
 import ru.practicum.admin.events.model.State;
+import ru.practicum.dto.EventFullDto;
+import ru.practicum.dto.EventShortDto;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.event.dto.EventSort;
 import ru.practicum.pub.event.storage.PublicEventRepository;
@@ -22,8 +23,9 @@ import java.util.stream.Collectors;
 import static ru.practicum.pub.event.dto.EventSort.EVENT_DATE;
 import static ru.practicum.pub.event.dto.EventSort.VIEWS;
 
-@Component
 @RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class PublicEventService {
 
     private final PublicEventRepository publicEventRepository;

@@ -1,17 +1,19 @@
 package ru.practicum.pub.categories.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.CategoryMapper;
-import ru.practicum.dto.CategoryDto;
 import ru.practicum.admin.categories.storage.CategoryRepository;
+import ru.practicum.dto.CategoryDto;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Component
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class PublicCategoriesService {
 
     private final CategoryRepository repository;

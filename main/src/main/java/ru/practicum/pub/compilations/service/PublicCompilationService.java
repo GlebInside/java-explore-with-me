@@ -1,17 +1,19 @@
 package ru.practicum.pub.compilations.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.compilations.CompilationMapper;
-import ru.practicum.dto.CompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
+import ru.practicum.dto.CompilationDto;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Component
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class PublicCompilationService {
 
     private final CompilationRepository repository;

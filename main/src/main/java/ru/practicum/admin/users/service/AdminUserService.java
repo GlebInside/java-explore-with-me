@@ -1,8 +1,9 @@
 package ru.practicum.admin.users.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.users.UserMapper;
 import ru.practicum.admin.users.dto.UserDto;
 import ru.practicum.admin.users.model.User;
@@ -12,18 +13,21 @@ import ru.practicum.exception.NotFoundException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Component
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class AdminUserService {
 
     private final AdminUserRepository repository;
 
+    @Transactional
     public UserDto addNew(UserDto dto) {
         var model = UserMapper.createFromDto(dto);
         var added = repository.saveAndFlush(model);
         return UserMapper.fromModel(added);
     }
 
+    @Transactional
     public UserDto update(UserDto dto) {
         var model = repository.getReferenceById(dto.getId());
         UserMapper.updateFromDto(dto, model);

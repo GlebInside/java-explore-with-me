@@ -1,17 +1,18 @@
 package ru.practicum.priv.events.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.service.CategoryService;
 import ru.practicum.admin.events.EventMapper;
-import ru.practicum.dto.EventFullDto;
-import ru.practicum.dto.EventShortDto;
-import ru.practicum.dto.NewEventDto;
 import ru.practicum.admin.events.model.State;
 import ru.practicum.admin.users.model.User;
 import ru.practicum.admin.users.service.AdminUserService;
+import ru.practicum.dto.EventFullDto;
+import ru.practicum.dto.EventShortDto;
+import ru.practicum.dto.NewEventDto;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 import ru.practicum.priv.events.storage.UserEventRepository;
@@ -20,14 +21,16 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Component
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class UserEventService {
 
     private final AdminUserService adminUserService;
     private final CategoryService categoryService;
     private final UserEventRepository repository;
 
+    @Transactional
     public EventFullDto addNew(int userId, NewEventDto dto) {
         var model = EventMapper.createFromDto(dto, adminUserService.getById(userId), categoryService.getById(dto.getCategory()));
         var added = repository.saveAndFlush(model);
@@ -46,6 +49,7 @@ public class UserEventService {
         return repository.findByInitiator(adminUserService.getById(userId), PageRequest.of(from, size)).stream().map(EventMapper::toShortDto).collect(Collectors.toList());
     }
 
+    @Transactional
     public EventFullDto update(int userId, UpdateEventRequest dto) {
         var model = repository.getReferenceById(dto.getEventId());
         if (model.getInitiator().getId() != userId) {

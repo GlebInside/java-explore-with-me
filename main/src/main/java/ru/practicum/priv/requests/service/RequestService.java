@@ -1,7 +1,8 @@
 package ru.practicum.priv.requests.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.events.service.AdminEventService;
 import ru.practicum.admin.users.service.AdminUserService;
 import ru.practicum.exception.BadRequestException;
@@ -15,8 +16,9 @@ import ru.practicum.priv.requests.storage.RequestRepository;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Component
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class RequestService {
 
     private final RequestRepository requestRepository;
@@ -27,6 +29,7 @@ public class RequestService {
         return requestRepository.findByRequesterId(requesterId).stream().map(RequestMapper::fromModel).collect(Collectors.toList());
     }
 
+    @Transactional
     public ParticipationRequestDto addNew(int eventId, int userId) {
         var model = new Request();
         model.setEvent(adminEventService.getById(eventId));
@@ -34,6 +37,7 @@ public class RequestService {
         return RequestMapper.fromModel(requestRepository.saveAndFlush(model));
     }
 
+    @Transactional
     public ParticipationRequestDto cancel(int requestId, int userId) {
         var model = requestRepository.getReferenceById(requestId);
         if (model.getRequester().getId() != userId) {
@@ -51,6 +55,7 @@ public class RequestService {
         return requestRepository.findByEventId(eventId).stream().map(RequestMapper::fromModel).collect(Collectors.toList());
     }
 
+    @Transactional
     public ParticipationRequestDto confirm(int initiatorId, int eventId, int requestId) {
         var model = requestRepository.getReferenceById(requestId);
         if (model.getEvent().getId() != eventId) {
@@ -64,6 +69,7 @@ public class RequestService {
         return RequestMapper.fromModel(model);
     }
 
+    @Transactional
     public ParticipationRequestDto reject(int initiatorId, int eventId, int requestId) {
         var model = requestRepository.getReferenceById(requestId);
         if (model.getEvent().getId() != eventId) {

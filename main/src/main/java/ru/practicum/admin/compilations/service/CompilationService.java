@@ -1,23 +1,26 @@
 package ru.practicum.admin.compilations.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.compilations.CompilationMapper;
-import ru.practicum.dto.CompilationDto;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
+import ru.practicum.dto.CompilationDto;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.event.service.PublicEventService;
 
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Component
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class CompilationService {
 
     private final PublicEventService publicEventService;
     private final CompilationRepository repository;
 
+    @Transactional
     public CompilationDto addNew(NewCompilationDto dto) {
         var events = dto.getEvents()
                 .stream()
@@ -44,6 +47,7 @@ public class CompilationService {
         repository.saveAndFlush(model);
     }
 
+    @Transactional
     public CompilationDto addEvent(int id, int eventId) {
         var event = publicEventService.getById(eventId);
         var model = repository.getReferenceById(id);
@@ -59,10 +63,10 @@ public class CompilationService {
         return setPinned(compilationId, false);
     }
 
+    @Transactional
     public CompilationDto setPinned(int compilationId, boolean pinned) {
         var model = repository.getReferenceById(compilationId);
         model.setPinned(pinned);
-        model = repository.saveAndFlush(model);
         return CompilationMapper.fromModel(model);
     }
 }

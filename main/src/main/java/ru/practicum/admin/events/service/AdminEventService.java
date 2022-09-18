@@ -1,14 +1,15 @@
 package ru.practicum.admin.events.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.service.CategoryService;
 import ru.practicum.admin.events.EventMapper;
 import ru.practicum.admin.events.dto.AdminUpdateEventRequest;
-import ru.practicum.dto.EventFullDto;
 import ru.practicum.admin.events.model.Event;
 import ru.practicum.admin.events.model.State;
 import ru.practicum.admin.events.storage.AdminEventRepository;
+import ru.practicum.dto.EventFullDto;
 import ru.practicum.exception.BadRequestException;
 
 import java.time.LocalDateTime;
@@ -16,8 +17,9 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-@Component
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
 public class AdminEventService {
 
     private final AdminEventRepository eventRepository;
@@ -31,12 +33,14 @@ public class AdminEventService {
         return eventRepository.getReferenceById(eventId);
     }
 
+    @Transactional
     public EventFullDto update(int eventId, AdminUpdateEventRequest dto) {
         var model = eventRepository.getReferenceById(eventId);
         model = EventMapper.updateFromAdminRequest(model, dto, categoryService.getById(dto.getCategory()));
         return EventMapper.toFullDto(eventRepository.saveAndFlush(model));
     }
 
+    @Transactional
     public EventFullDto publish(int eventId) {
         var model = eventRepository.getReferenceById(eventId);
         model.setState(State.PUBLISHED);
@@ -44,6 +48,7 @@ public class AdminEventService {
         return EventMapper.toFullDto(eventRepository.saveAndFlush(model));
     }
 
+    @Transactional
     public EventFullDto reject(int eventId) {
         var model = eventRepository.getReferenceById(eventId);
         if (model.getState() != State.PENDING) {
