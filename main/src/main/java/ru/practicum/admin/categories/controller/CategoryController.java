@@ -1,27 +1,29 @@
 package ru.practicum.admin.categories.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.Create;
+import ru.practicum.Update;
 import ru.practicum.admin.categories.dto.CategoryDto;
 import ru.practicum.admin.categories.service.CategoryService;
 import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/admin/categories")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @PostMapping
-    public CategoryDto addNewCategory(@Valid @RequestBody CategoryDto categoryDto) {
+    public CategoryDto addNewCategory(@Validated(Create.class) @RequestBody CategoryDto categoryDto) {
         try {
             return categoryService.addNew(categoryDto);
         } catch (DataIntegrityViolationException e) {
@@ -30,7 +32,7 @@ public class CategoryController {
     }
 
     @PatchMapping
-    public CategoryDto updateCategory(@RequestBody CategoryDto categoryDto) {
+    public CategoryDto updateCategory(@Validated(Update.class) @RequestBody CategoryDto categoryDto) {
         try {
             return categoryService.update(categoryDto);
         } catch (EntityNotFoundException e) {

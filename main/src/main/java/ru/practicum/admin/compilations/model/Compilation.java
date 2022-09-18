@@ -20,6 +20,6 @@ public class Compilation {
     @ManyToMany
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "event_id"), joinColumns = @JoinColumn(name = "compilation_id"), uniqueConstraints = {@UniqueConstraint(name = "unique_compilation_event", columnNames = {"event_id", "compilation_id"})})
     private List<Event> events;
-    private Boolean pinned;
+    private boolean pinned;
     private String title;
 }

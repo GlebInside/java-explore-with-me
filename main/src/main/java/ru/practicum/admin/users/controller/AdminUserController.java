@@ -1,6 +1,6 @@
 package ru.practicum.admin.users.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/admin/users")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AdminUserController {
 
     private final AdminUserService adminUserService;

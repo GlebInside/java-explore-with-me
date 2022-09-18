@@ -1,5 +1,7 @@
 package ru.practicum.admin.events;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import ru.practicum.admin.categories.CategoryMapper;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.events.dto.*;
@@ -8,6 +10,7 @@ import ru.practicum.admin.users.UserMapper;
 import ru.practicum.admin.users.model.User;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventMapper {
     public static Event createFromDto(NewEventDto dto, User initiator, Category category) {
         var model = new Event();

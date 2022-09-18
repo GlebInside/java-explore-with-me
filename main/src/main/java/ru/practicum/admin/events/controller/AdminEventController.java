@@ -1,6 +1,6 @@
 package ru.practicum.admin.events.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.events.dto.AdminUpdateEventRequest;
@@ -12,7 +12,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/admin/events")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AdminEventController {
 
     private final AdminEventService eventService;

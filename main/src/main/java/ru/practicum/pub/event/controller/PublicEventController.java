@@ -1,7 +1,7 @@
 package ru.practicum.pub.event.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.events.dto.EventFullDto;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(path = "events")
 public class PublicEventController {
 

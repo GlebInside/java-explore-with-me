@@ -1,6 +1,6 @@
 package ru.practicum.pub.compilations.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.compilations.dto.CompilationDto;
@@ -11,7 +11,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/compilations")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PublicCompilationController {
 
     private final PublicCompilationService compilationService;

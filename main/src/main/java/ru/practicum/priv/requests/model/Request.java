@@ -27,6 +27,8 @@ public class Request {
     @OneToOne
     @JoinColumn(name = "requester_id")
     private User requester;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private Status status = Status.PENDING;
     @CreationTimestamp
     private LocalDateTime created;

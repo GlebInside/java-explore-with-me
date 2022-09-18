@@ -20,8 +20,9 @@ public class CompilationService {
     private final CompilationRepository repository;
 
     public CompilationDto addNew(NewCompilationDto dto) {
-        var events = Arrays.stream(dto.getEvents())
-                .mapToObj(publicEventService::getById)
+        var events = dto.getEvents()
+                .stream()
+                .map(publicEventService::getById)
                 .collect(Collectors.toList());
         var model = CompilationMapper.createFromDto(dto, events);
         var added = repository.saveAndFlush(model);

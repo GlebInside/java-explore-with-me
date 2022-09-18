@@ -1,10 +1,12 @@
 package ru.practicum;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import ru.practicum.dto.EndpointHit;
 import ru.practicum.dto.ViewStats;
 import ru.practicum.model.Stats;
 
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StatsMapper {
 
     public static Stats fromDto(EndpointHit dto) {

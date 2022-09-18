@@ -1,6 +1,6 @@
 package ru.practicum.pub.event.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.events.EventMapper;
@@ -23,7 +23,7 @@ import static ru.practicum.pub.event.dto.EventSort.EVENT_DATE;
 import static ru.practicum.pub.event.dto.EventSort.VIEWS;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PublicEventService {
 
     private final PublicEventRepository publicEventRepository;
@@ -72,4 +72,9 @@ public class PublicEventService {
         }
         return EventMapper.toFullDto(model);
     }
+
+    public Collection<Event> findEventsByCategoryId(int categoryId) {
+        return publicEventRepository.findEventsByCategoryId(categoryId);
+    }
+
 }

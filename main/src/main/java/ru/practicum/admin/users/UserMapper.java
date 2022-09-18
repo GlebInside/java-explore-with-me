@@ -1,9 +1,12 @@
 package ru.practicum.admin.users;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import ru.practicum.admin.users.dto.UserDto;
 import ru.practicum.admin.users.dto.UserShortDto;
 import ru.practicum.admin.users.model.User;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMapper {
     public static User createFromDto(UserDto dto) {
         var model = new User();

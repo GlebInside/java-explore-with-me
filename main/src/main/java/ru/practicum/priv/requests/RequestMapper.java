@@ -1,8 +1,11 @@
 package ru.practicum.priv.requests;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import ru.practicum.priv.requests.dto.ParticipationRequestDto;
 import ru.practicum.priv.requests.model.Request;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RequestMapper {
 
     public static ParticipationRequestDto fromModel(Request model) {

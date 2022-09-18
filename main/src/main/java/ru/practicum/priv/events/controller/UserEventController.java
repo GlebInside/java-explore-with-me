@@ -1,6 +1,6 @@
 package ru.practicum.priv.events.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/users")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserEventController {
 
     private final UserEventService userEventService;

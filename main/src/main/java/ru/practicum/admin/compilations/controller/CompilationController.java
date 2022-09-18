@@ -1,6 +1,6 @@
 package ru.practicum.admin.compilations.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
@@ -8,15 +8,13 @@ import ru.practicum.admin.compilations.dto.CompilationDto;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.service.CompilationService;
 import ru.practicum.exception.BadRequestException;
-import ru.practicum.exception.NotFoundException;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/admin/compilations")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CompilationController {
 
     private final CompilationService compilationService;
@@ -34,8 +32,6 @@ public class CompilationController {
     public CompilationDto addEvent(@PathVariable int compilationId, @PathVariable int eventId) {
         try {
             return compilationService.addEvent(compilationId, eventId);
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
         } catch (DataIntegrityViolationException e) {
             throw new BadRequestException(e.getMessage());
         }

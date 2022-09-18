@@ -5,14 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewCompilationDto {
 
-    private int[] events;
-    private Boolean pinned;
+    private Set<Integer> events;
+    private boolean pinned;
     @NotBlank
     private String title;
 }

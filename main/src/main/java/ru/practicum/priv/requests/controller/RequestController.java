@@ -1,6 +1,6 @@
 package ru.practicum.priv.requests.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.priv.requests.dto.ParticipationRequestDto;
@@ -11,7 +11,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/users")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RequestController {
 
     private final RequestService requestService;
