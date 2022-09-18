@@ -1,19 +1,14 @@
 package ru.practicum.admin.categories.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.CategoryMapper;
-import ru.practicum.admin.categories.dto.CategoryDto;
+import ru.practicum.dto.CategoryDto;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.exception.BadRequestException;
-import ru.practicum.pub.event.dto.EventSort;
 import ru.practicum.pub.event.service.PublicEventService;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

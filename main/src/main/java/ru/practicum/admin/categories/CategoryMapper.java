@@ -2,7 +2,7 @@ package ru.practicum.admin.categories;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import ru.practicum.admin.categories.dto.CategoryDto;
+import ru.practicum.dto.CategoryDto;
 import ru.practicum.admin.categories.model.Category;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

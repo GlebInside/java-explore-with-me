@@ -2,7 +2,7 @@ package ru.practicum.priv.users;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.practicum.admin.events.dto.EventShortDto;
+import ru.practicum.dto.EventShortDto;
 import ru.practicum.priv.events.service.UserEventService;
 
 import java.util.Collection;

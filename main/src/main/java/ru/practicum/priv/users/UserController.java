@@ -3,7 +3,7 @@ package ru.practicum.priv.users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.admin.events.dto.EventShortDto;
+import ru.practicum.dto.EventShortDto;
 
 import java.util.Collection;
 

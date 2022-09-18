@@ -1,11 +1,8 @@
-package ru.practicum.admin.compilations.dto;
+package ru.practicum.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.admin.events.dto.EventShortDto;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor

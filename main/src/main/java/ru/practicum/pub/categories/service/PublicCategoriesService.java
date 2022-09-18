@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.categories.CategoryMapper;
-import ru.practicum.admin.categories.dto.CategoryDto;
+import ru.practicum.dto.CategoryDto;
 import ru.practicum.admin.categories.storage.CategoryRepository;
 
 import java.util.Collection;

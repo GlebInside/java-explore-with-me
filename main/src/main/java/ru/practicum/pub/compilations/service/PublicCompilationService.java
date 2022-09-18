@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.compilations.CompilationMapper;
-import ru.practicum.admin.compilations.dto.CompilationDto;
+import ru.practicum.dto.CompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
 
 import java.util.Collection;

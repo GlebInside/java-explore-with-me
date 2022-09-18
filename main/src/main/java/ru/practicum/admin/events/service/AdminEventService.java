@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.practicum.admin.categories.service.CategoryService;
 import ru.practicum.admin.events.EventMapper;
 import ru.practicum.admin.events.dto.AdminUpdateEventRequest;
-import ru.practicum.admin.events.dto.EventFullDto;
+import ru.practicum.dto.EventFullDto;
 import ru.practicum.admin.events.model.Event;
 import ru.practicum.admin.events.model.State;
 import ru.practicum.admin.events.storage.AdminEventRepository;

@@ -8,6 +8,9 @@ import ru.practicum.admin.events.dto.*;
 import ru.practicum.admin.events.model.Event;
 import ru.practicum.admin.users.UserMapper;
 import ru.practicum.admin.users.model.User;
+import ru.practicum.dto.EventFullDto;
+import ru.practicum.dto.EventShortDto;
+import ru.practicum.dto.NewEventDto;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

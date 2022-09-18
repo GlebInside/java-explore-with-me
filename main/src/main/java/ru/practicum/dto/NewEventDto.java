@@ -1,9 +1,10 @@
-package ru.practicum.admin.events.dto;
+package ru.practicum.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.practicum.admin.events.dto.Location;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

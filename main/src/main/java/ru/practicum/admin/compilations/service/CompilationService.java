@@ -3,13 +3,12 @@ package ru.practicum.admin.compilations.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.admin.compilations.CompilationMapper;
-import ru.practicum.admin.compilations.dto.CompilationDto;
+import ru.practicum.dto.CompilationDto;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.event.service.PublicEventService;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
