@@ -10,6 +10,7 @@ import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/admin/categories")
@@ -20,7 +21,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public CategoryDto addNewCategory(@RequestBody CategoryDto categoryDto) {
+    public CategoryDto addNewCategory(@Valid @RequestBody CategoryDto categoryDto) {
         try {
             return categoryService.addNew(categoryDto);
         } catch (DataIntegrityViolationException e) {

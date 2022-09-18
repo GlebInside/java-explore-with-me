@@ -15,6 +15,7 @@ import ru.practicum.priv.requests.dto.ParticipationRequestDto;
 import ru.practicum.priv.requests.service.RequestService;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -27,7 +28,7 @@ public class UserEventController {
     private final RequestService requestService;
 
     @PostMapping("/{userId}/events")
-    public EventFullDto addNew(@PathVariable int userId, @RequestBody NewEventDto dto) {
+    public EventFullDto addNew(@PathVariable int userId, @Valid @RequestBody NewEventDto dto) {
         try {
             return userEventService.addNew(userId, dto);
         } catch (DataIntegrityViolationException e) {

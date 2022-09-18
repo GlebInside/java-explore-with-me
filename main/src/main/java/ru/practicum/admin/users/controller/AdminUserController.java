@@ -10,6 +10,7 @@ import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -21,7 +22,7 @@ public class AdminUserController {
     private final AdminUserService adminUserService;
 
     @PostMapping
-    public UserDto addNew(@RequestBody UserDto dto) {
+    public UserDto addNew(@Valid @RequestBody UserDto dto) {
         try {
             return adminUserService.addNew(dto);
         } catch (DataIntegrityViolationException e) {

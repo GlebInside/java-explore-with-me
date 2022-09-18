@@ -11,6 +11,7 @@ import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/admin/compilations")
@@ -21,7 +22,7 @@ public class CompilationController {
     private final CompilationService compilationService;
 
     @PostMapping
-    public CompilationDto addNew(@RequestBody NewCompilationDto dto) {
+    public CompilationDto addNew(@Valid @RequestBody NewCompilationDto dto) {
         try {
             return compilationService.addNew(dto);
         } catch (DataIntegrityViolationException e) {

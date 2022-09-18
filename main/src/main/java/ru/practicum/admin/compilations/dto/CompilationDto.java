@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.admin.events.dto.EventShortDto;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
