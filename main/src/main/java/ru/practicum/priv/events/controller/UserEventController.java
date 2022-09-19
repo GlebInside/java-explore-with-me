@@ -34,13 +34,7 @@ public class UserEventController {
 
     @PatchMapping("/{userId}/events")
     public EventFullDto update(@PathVariable int userId, @RequestBody UpdateEventRequest dto) {
-        try {
             return userEventService.update(userId, dto);
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 
     @GetMapping("/{userId}/events")
@@ -60,14 +54,8 @@ public class UserEventController {
 
     @PatchMapping("/{userId}/events/{eventId}")
     public EventFullDto updateEvent(@RequestBody UpdateEventRequest dto, @PathVariable int userId, @PathVariable int eventId) {
-        try {
             dto.setEventId(eventId);
             return userEventService.update(userId, dto);
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")
