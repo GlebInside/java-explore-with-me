@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique = true)
+    @Size(max = 512)
     private String email;
+    @Column(nullable = false)
     private String name;
     @ManyToMany
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "subscriber_id"), joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(name = "unique_user_subscriber", columnNames = {"user_id", "subscriber_id"})})
