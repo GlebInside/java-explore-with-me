@@ -8,7 +8,6 @@ import ru.practicum.admin.users.UserMapper;
 import ru.practicum.admin.users.dto.UserDto;
 import ru.practicum.admin.users.model.User;
 import ru.practicum.admin.users.storage.AdminUserRepository;
-import ru.practicum.exception.NotFoundException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class AdminUserService {
     public UserDto update(UserDto dto) {
         var model = repository.getReferenceById(dto.getId());
         UserMapper.updateFromDto(dto, model);
-        return UserMapper.fromModel(repository.saveAndFlush(model));
+        return UserMapper.fromModel(model);
     }
 
     public void delete(int id) {

@@ -29,11 +29,7 @@ public class UserEventController {
 
     @PostMapping("/{userId}/events")
     public EventFullDto addNew(@PathVariable int userId, @Valid @RequestBody NewEventDto dto) {
-        try {
             return userEventService.addNew(userId, dto);
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 
     @PatchMapping("/{userId}/events")
