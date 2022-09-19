@@ -2,19 +2,15 @@ package ru.practicum.priv.events.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.dto.EventShortDto;
 import ru.practicum.dto.NewEventDto;
-import ru.practicum.exception.BadRequestException;
-import ru.practicum.exception.NotFoundException;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 import ru.practicum.priv.events.service.UserEventService;
 import ru.practicum.priv.requests.dto.ParticipationRequestDto;
 import ru.practicum.priv.requests.service.RequestService;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Collection;
 
@@ -29,12 +25,12 @@ public class UserEventController {
 
     @PostMapping("/{userId}/events")
     public EventFullDto addNew(@PathVariable int userId, @Valid @RequestBody NewEventDto dto) {
-            return userEventService.addNew(userId, dto);
+        return userEventService.addNew(userId, dto);
     }
 
     @PatchMapping("/{userId}/events")
     public EventFullDto update(@PathVariable int userId, @RequestBody UpdateEventRequest dto) {
-            return userEventService.update(userId, dto);
+        return userEventService.update(userId, dto);
     }
 
     @GetMapping("/{userId}/events")
@@ -54,8 +50,8 @@ public class UserEventController {
 
     @PatchMapping("/{userId}/events/{eventId}")
     public EventFullDto updateEvent(@RequestBody UpdateEventRequest dto, @PathVariable int userId, @PathVariable int eventId) {
-            dto.setEventId(eventId);
-            return userEventService.update(userId, dto);
+        dto.setEventId(eventId);
+        return userEventService.update(userId, dto);
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")

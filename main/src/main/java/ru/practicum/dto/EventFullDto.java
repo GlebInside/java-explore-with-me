@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventFullDto extends EventShortDto{
+public class EventFullDto extends EventShortDto {
 
     private LocalDateTime createdOn;
     private String description;

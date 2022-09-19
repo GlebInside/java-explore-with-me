@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.dto.EventShortDto;
 import ru.practicum.priv.events.service.UserEventService;
-import ru.practicum.priv.events.storage.UserEventRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

@@ -3,11 +3,9 @@ package ru.practicum.pub.categories.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.dto.CategoryDto;
 import ru.practicum.pub.categories.service.PublicCategoriesService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 @RestController

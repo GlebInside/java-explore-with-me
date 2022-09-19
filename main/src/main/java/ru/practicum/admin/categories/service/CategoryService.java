@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.CategoryMapper;
-import ru.practicum.dto.CategoryDto;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.storage.CategoryRepository;
+import ru.practicum.dto.CategoryDto;
 import ru.practicum.exception.BadRequestException;
 import ru.practicum.pub.event.service.PublicEventService;
-import ru.practicum.pub.event.storage.PublicEventRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -35,7 +34,7 @@ public class CategoryService {
 
     public void delete(int catId) {
         var events = eventService.findEventsByCategoryId(catId);
-        if(events.size() != 0) {
+        if (events.size() != 0) {
             throw new BadRequestException("Can't delete used category");
         }
         categoryRepository.delete(categoryRepository.getReferenceById(catId));

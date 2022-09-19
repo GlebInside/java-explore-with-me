@@ -9,9 +9,7 @@ import ru.practicum.Create;
 import ru.practicum.admin.users.dto.UserDto;
 import ru.practicum.admin.users.service.AdminUserService;
 import ru.practicum.exception.BadRequestException;
-import ru.practicum.exception.NotFoundException;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
 @RestController

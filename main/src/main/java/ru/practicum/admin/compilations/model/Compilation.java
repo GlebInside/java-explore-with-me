@@ -3,7 +3,6 @@ package ru.practicum.admin.compilations.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 import ru.practicum.admin.events.model.Event;
 
 import javax.persistence.*;
