@@ -10,6 +10,7 @@ import ru.practicum.admin.users.model.User;
 import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.exception.NotFoundException;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -42,8 +43,9 @@ public class AdminUserService {
         repository.delete(model);
     }
 
-    public Collection<UserDto> get(int from, Integer size) {
-        return repository.findAll(PageRequest.of(from, size)).stream().map(UserMapper::fromModel).collect(Collectors.toList());
+    public Collection<UserDto> get(Integer[] ids, int from, Integer size) {
+        var users =  repository.findAllById(Arrays.asList(ids), PageRequest.of(from, size)).stream().map(UserMapper::fromModel).collect(Collectors.toList());
+        return users;
     }
 
     public User getById(int userId) {

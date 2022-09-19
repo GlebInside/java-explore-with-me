@@ -2,11 +2,16 @@ package ru.practicum.admin.events.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.admin.events.dto.AdminUpdateEventRequest;
+import ru.practicum.admin.events.model.State;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.admin.events.service.AdminEventService;
+import ru.practicum.pub.event.dto.EventSort;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @RestController
@@ -18,7 +23,14 @@ public class AdminEventController {
     private final AdminEventService eventService;
 
     @GetMapping
-    private Collection<EventFullDto> getAllEvents() {
+    private Collection<EventFullDto> find(
+            @RequestParam(required = false) String[] users,
+            @RequestParam(required = false) State[] states,
+            @RequestParam(required = false) String[] categories,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeStart,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeEnd,
+            @RequestParam(defaultValue = "0") int from,
+            @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
         return eventService.getAllEvents();
     }
 
