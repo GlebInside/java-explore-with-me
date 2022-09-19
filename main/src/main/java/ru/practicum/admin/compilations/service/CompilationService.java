@@ -7,7 +7,6 @@ import ru.practicum.admin.compilations.CompilationMapper;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
 import ru.practicum.dto.CompilationDto;
-import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.event.service.PublicEventService;
 
 import java.util.stream.Collectors;
@@ -36,6 +35,7 @@ public class CompilationService {
         repository.delete(model);
     }
 
+    @Transactional
     public void deleteEvent(int id, int eventId) {
         var model = repository.getReferenceById(id);
         var events = model.getEvents();

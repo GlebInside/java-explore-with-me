@@ -36,9 +36,6 @@ public class AdminUserService {
     }
 
     public void delete(int id) {
-        if (!repository.existsById(id)) {
-            throw new NotFoundException("missing user with id " + id);
-        }
         var model = repository.getReferenceById(id);
         repository.delete(model);
     }
