@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.service.CategoryService;
+import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.admin.events.EventMapper;
 import ru.practicum.admin.events.model.State;
 import ru.practicum.admin.users.model.User;
 import ru.practicum.admin.users.service.AdminUserService;
+import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.dto.EventShortDto;
 import ru.practicum.dto.NewEventDto;
@@ -26,13 +28,13 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class UserEventService {
 
-    private final AdminUserService adminUserService;
-    private final CategoryService categoryService;
+    private final AdminUserRepository adminUserRepository;
+    private final CategoryRepository categoryRepository;
     private final UserEventRepository repository;
 
     @Transactional
     public EventFullDto addNew(int userId, NewEventDto dto) {
-        var model = EventMapper.createFromDto(dto, adminUserService.getById(userId), categoryService.getById(dto.getCategory()));
+        var model = EventMapper.createFromDto(dto, adminUserRepository.getReferenceById(userId), categoryRepository.getReferenceById(dto.getCategory()));
         var added = repository.saveAndFlush(model);
         return EventMapper.toFullDto(added);
     }
@@ -46,7 +48,7 @@ public class UserEventService {
     }
 
     public Collection<EventShortDto> get(int userId, int from, int size) {
-        return repository.findByInitiator(adminUserService.getById(userId), PageRequest.of(from, size)).stream().map(EventMapper::toShortDto).collect(Collectors.toList());
+        return repository.findByInitiator(adminUserRepository.getReferenceById(userId), PageRequest.of(from, size)).stream().map(EventMapper::toShortDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -57,7 +59,7 @@ public class UserEventService {
         }
         Category category = null;
         if (dto.getCategory() != null) {
-            category = categoryService.getById(dto.getCategory());
+            category = categoryRepository.getReferenceById(dto.getCategory());
         }
         EventMapper.updateFromRequest(dto, model, category);
         return EventMapper.toFullDto(repository.saveAndFlush(model));
