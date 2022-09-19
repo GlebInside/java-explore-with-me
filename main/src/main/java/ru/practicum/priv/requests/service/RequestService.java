@@ -3,8 +3,8 @@ package ru.practicum.priv.requests.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.admin.events.service.AdminEventService;
-import ru.practicum.admin.users.service.AdminUserService;
+import ru.practicum.admin.events.storage.AdminEventRepository;
+import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.priv.requests.RequestMapper;
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class RequestService {
 
     private final RequestRepository requestRepository;
-    private final AdminEventService adminEventService;
-    private final AdminUserService adminUserService;
+    private final AdminEventRepository adminEventRepository;
+    private final AdminUserRepository adminUserRepository;
 
     public Collection<ParticipationRequestDto> getAllRequests(int requesterId) {
         return requestRepository.findByRequesterId(requesterId).stream().map(RequestMapper::fromModel).collect(Collectors.toList());
@@ -32,8 +32,8 @@ public class RequestService {
     @Transactional
     public ParticipationRequestDto addNew(int eventId, int userId) {
         var model = new Request();
-        model.setEvent(adminEventService.getById(eventId));
-        model.setRequester(adminUserService.getById(userId));
+        model.setEvent(adminEventRepository.getReferenceById(eventId));
+        model.setRequester(adminUserRepository.getReferenceById(userId));
         return RequestMapper.fromModel(requestRepository.saveAndFlush(model));
     }
 
@@ -48,7 +48,7 @@ public class RequestService {
     }
 
     public Collection<ParticipationRequestDto> getAllRequests(int initiatorId, int eventId) {
-        var model = adminEventService.getById(eventId);
+        var model = adminEventRepository.getReferenceById(eventId);
         if (model.getInitiator().getId() != initiatorId) {
             throw new BadRequestException("this is not your event");
         }
