@@ -21,12 +21,13 @@ public class Request {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
-    @JoinColumn(name = "event_id")
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
-    @OneToOne
-    @JoinColumn(name = "requester_id")
+    @ManyToOne
+    @JoinColumn(name = "requester_id", nullable = false)
     private User requester;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status = Status.PENDING;

@@ -3,6 +3,7 @@ package ru.practicum.pub.categories.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.dto.CategoryDto;
 import ru.practicum.pub.categories.service.PublicCategoriesService;
 
@@ -18,7 +19,7 @@ public class PublicCategoriesController {
     private final PublicCategoriesService categoryService;
 
     @GetMapping
-    public Collection<CategoryDto> find(@RequestParam(defaultValue = "0") int from, @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
+    public Collection<CategoryDto> find(@RequestParam(defaultValue = "0") int from, @RequestParam(defaultValue = "10") int size) {
         return categoryService.find(from, size);
     }
 

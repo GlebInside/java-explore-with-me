@@ -9,4 +9,4 @@ import java.util.Collection;
 
 public interface UserEventRepository extends JpaRepository<Event, Integer> {
     Collection<Event> findByInitiator(User initiator, PageRequest of);
-}
+    }

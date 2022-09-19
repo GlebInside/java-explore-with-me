@@ -9,6 +9,7 @@ import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.exception.BadRequestException;
 import ru.practicum.pub.event.service.PublicEventService;
+import ru.practicum.pub.event.storage.PublicEventRepository;
 
 @RequiredArgsConstructor
 @Service
