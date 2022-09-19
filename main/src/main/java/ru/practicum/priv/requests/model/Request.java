@@ -27,7 +27,6 @@ public class Request {
     @ManyToOne
     @JoinColumn(name = "requester_id", nullable = false)
     private User requester;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status = Status.PENDING;
