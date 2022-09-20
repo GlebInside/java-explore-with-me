@@ -7,12 +7,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.Create;
 import ru.practicum.Update;
-import ru.practicum.dto.CategoryDto;
 import ru.practicum.admin.categories.service.CategoryService;
+import ru.practicum.dto.CategoryDto;
 import ru.practicum.exception.BadRequestException;
-import ru.practicum.exception.NotFoundException;
-
-import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping(path = "/admin/categories")
