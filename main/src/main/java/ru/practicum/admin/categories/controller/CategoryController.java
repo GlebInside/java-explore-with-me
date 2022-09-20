@@ -33,13 +33,7 @@ public class CategoryController {
 
     @PatchMapping
     public CategoryDto updateCategory(@Validated(Update.class) @RequestBody CategoryDto categoryDto) {
-        try {
-            return categoryService.update(categoryDto);
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
+        return categoryService.update(categoryDto);
     }
 
     @DeleteMapping("/{catId}")
