@@ -21,11 +21,7 @@ public class CompilationController {
 
     @PostMapping
     public CompilationDto addNew(@Valid @RequestBody NewCompilationDto dto) {
-        try {
             return compilationService.addNew(dto);
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 
     @PatchMapping("/{compilationId}/events/{eventId}")

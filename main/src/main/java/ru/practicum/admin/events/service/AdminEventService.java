@@ -37,15 +37,21 @@ public class AdminEventService {
     public EventFullDto update(int eventId, AdminUpdateEventRequest dto) {
         var model = eventRepository.getReferenceById(eventId);
         model = EventMapper.updateFromAdminRequest(model, dto, categoryService.getById(dto.getCategory()));
-        return EventMapper.toFullDto(eventRepository.saveAndFlush(model));
+        return EventMapper.toFullDto(model);
     }
 
     @Transactional
     public EventFullDto publish(int eventId) {
         var model = eventRepository.getReferenceById(eventId);
+        if(model.getState() != State.PENDING) {
+            throw new BadRequestException("Status is not PENDING");
+        }
+        if(model.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
+            throw new BadRequestException("The event start time shouldn't be earlier than 1 hour from now");
+        }
         model.setState(State.PUBLISHED);
         model.setPublishedOn(LocalDateTime.now());
-        return EventMapper.toFullDto(eventRepository.saveAndFlush(model));
+        return EventMapper.toFullDto(model);
     }
 
     @Transactional
@@ -55,6 +61,6 @@ public class AdminEventService {
             throw new BadRequestException("Only pending or canceled events can be changed");
         }
         model.setState(State.CANCELED);
-        return EventMapper.toFullDto(eventRepository.saveAndFlush(model));
+        return EventMapper.toFullDto(model);
     }
 }

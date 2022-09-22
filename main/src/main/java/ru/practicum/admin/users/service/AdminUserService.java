@@ -34,6 +34,7 @@ public class AdminUserService {
         return UserMapper.fromModel(model);
     }
 
+    @Transactional
     public void delete(int id) {
         var model = repository.getReferenceById(id);
         repository.delete(model);

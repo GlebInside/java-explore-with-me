@@ -7,7 +7,7 @@ import ru.practicum.admin.compilations.CompilationMapper;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
 import ru.practicum.dto.CompilationDto;
-import ru.practicum.pub.event.service.PublicEventService;
+import ru.practicum.pub.event.storage.PublicEventRepository;
 
 import java.util.stream.Collectors;
 
@@ -16,20 +16,18 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class CompilationService {
 
-    private final PublicEventService publicEventService;
     private final CompilationRepository repository;
+    private final PublicEventRepository publicEventRepository;
 
     @Transactional
     public CompilationDto addNew(NewCompilationDto dto) {
-        var events = dto.getEvents()
-                .stream()
-                .map(publicEventService::getById)
-                .collect(Collectors.toList());
+        var events = publicEventRepository.findAllById(dto.getEvents());
         var model = CompilationMapper.createFromDto(dto, events);
         var added = repository.saveAndFlush(model);
         return CompilationMapper.fromModel(added);
     }
 
+    @Transactional
     public void delete(int id) {
         var model = repository.getReferenceById(id);
         repository.delete(model);
@@ -46,7 +44,7 @@ public class CompilationService {
 
     @Transactional
     public CompilationDto addEvent(int id, int eventId) {
-        var event = publicEventService.getById(eventId);
+        var event = publicEventRepository.getReferenceById(eventId);
         var model = repository.getReferenceById(id);
         model.getEvents().add(event);
         return CompilationMapper.fromModel(repository.saveAndFlush(model));
