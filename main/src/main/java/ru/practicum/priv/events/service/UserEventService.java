@@ -13,6 +13,7 @@ import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.dto.EventShortDto;
 import ru.practicum.dto.NewEventDto;
+import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 import ru.practicum.priv.events.storage.UserEventRepository;
@@ -32,17 +33,12 @@ public class UserEventService {
 
     @Transactional
     public EventFullDto addNew(int userId, NewEventDto dto) {
+        if (dto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+            throw new BadRequestException("Event date is too early");
+        }
         var model = EventMapper.createFromDto(dto, adminUserRepository.getReferenceById(userId), categoryRepository.getReferenceById(dto.getCategory()));
         var added = repository.saveAndFlush(model);
         return EventMapper.toFullDto(added);
-    }
-
-    public void delete(int id) {
-        if (!repository.existsById(id)) {
-            throw new NotFoundException("missing item with id " + id);
-        }
-        var model = repository.getReferenceById(id);
-        repository.delete(model);
     }
 
     public Collection<EventShortDto> get(int userId, int from, int size) {
@@ -52,6 +48,12 @@ public class UserEventService {
     @Transactional
     public EventFullDto update(int userId, UpdateEventRequest dto) {
         var model = repository.getReferenceById(dto.getEventId());
+        if (model.getState() != State.CANCELED && model.getState() != State.PENDING) {
+            throw new BadRequestException("Bad status");
+        }
+        if (model.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+            throw new BadRequestException("Wrong event date");
+        }
         if (model.getInitiator().getId() != userId) {
             throw new NotFoundException("this event doesn't belong to this user");
         }
@@ -69,13 +71,5 @@ public class UserEventService {
             throw new NotFoundException("this event doesn't belong to this user");
         }
         return EventMapper.toFullDto(model);
-    }
-
-    public Collection<EventShortDto> getActualEvents(User initiator) {
-        return repository.findByInitiator(initiator, null).stream()
-                .filter(e -> e.getState() == State.PUBLISHED)
-                .filter(e -> e.getEventDate().isAfter(LocalDateTime.now()))
-                .map(EventMapper::toShortDto)
-                .collect(Collectors.toList());
     }
 }

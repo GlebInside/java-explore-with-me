@@ -3,7 +3,7 @@ package ru.practicum.admin.events.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.admin.categories.service.CategoryService;
+import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.admin.events.EventMapper;
 import ru.practicum.admin.events.dto.AdminUpdateEventRequest;
 import ru.practicum.admin.events.model.Event;
@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 public class AdminEventService {
 
     private final AdminEventRepository eventRepository;
-    private final CategoryService categoryService;
+
+    private final CategoryRepository categoryRepository;
 
     public Collection<EventFullDto> getAllEvents() {
         return eventRepository.findAll().stream().sorted(Comparator.comparing(Event::getId).reversed()).map(EventMapper::toFullDto).collect(Collectors.toList());
@@ -36,7 +37,7 @@ public class AdminEventService {
     @Transactional
     public EventFullDto update(int eventId, AdminUpdateEventRequest dto) {
         var model = eventRepository.getReferenceById(eventId);
-        model = EventMapper.updateFromAdminRequest(model, dto, categoryService.getById(dto.getCategory()));
+        model = EventMapper.updateFromAdminRequest(model, dto, categoryRepository.getReferenceById(dto.getCategory()));
         return EventMapper.toFullDto(model);
     }
 

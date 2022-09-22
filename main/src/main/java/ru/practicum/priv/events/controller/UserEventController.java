@@ -43,11 +43,6 @@ public class UserEventController {
         return userEventService.get(userId, eventId);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        userEventService.delete(id);
-    }
-
     @PatchMapping("/{userId}/events/{eventId}")
     public EventFullDto updateEvent(@RequestBody UpdateEventRequest dto, @PathVariable int userId, @PathVariable int eventId) {
         dto.setEventId(eventId);

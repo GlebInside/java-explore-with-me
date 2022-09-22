@@ -3,9 +3,13 @@ package ru.practicum.priv.users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.admin.events.EventMapper;
+import ru.practicum.admin.events.model.State;
+import ru.practicum.admin.users.model.User;
 import ru.practicum.dto.EventShortDto;
-import ru.practicum.priv.events.service.UserEventService;
+import ru.practicum.priv.events.storage.UserEventRepository;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -15,7 +19,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserEventService userEventService;
+    private final UserEventRepository userEventRepository;
 
     @Transactional
     public void subscribe(int subscriberId, int userId) {
@@ -28,6 +32,14 @@ public class UserService {
     public Collection<EventShortDto> getSubscriptionCreatedEvents(int subscriberId) {
         var users = userRepository.findBySubscribersId(subscriberId);
 
-        return users.stream().flatMap(u -> userEventService.getActualEvents(u).stream()).collect(Collectors.toList());
+        return users.stream().flatMap(u -> getActualEvents(u).stream()).collect(Collectors.toList());
+    }
+
+    private Collection<EventShortDto> getActualEvents(User initiator) {
+        return userEventRepository.findByInitiator(initiator, null).stream()
+                .filter(e -> e.getState() == State.PUBLISHED)
+                .filter(e -> e.getEventDate().isAfter(LocalDateTime.now()))
+                .map(EventMapper::toShortDto)
+                .collect(Collectors.toList());
     }
 }
