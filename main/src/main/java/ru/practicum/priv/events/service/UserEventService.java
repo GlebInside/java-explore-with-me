@@ -8,7 +8,6 @@ import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.admin.events.EventMapper;
 import ru.practicum.admin.events.model.State;
-import ru.practicum.admin.users.model.User;
 import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.dto.EventShortDto;

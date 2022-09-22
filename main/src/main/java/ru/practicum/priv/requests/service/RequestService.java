@@ -44,7 +44,7 @@ public class RequestService {
             throw new NotFoundException("request id doesn't belong to this user");
         }
         model.setStatus(Status.CANCELED);
-        return RequestMapper.fromModel(requestRepository.saveAndFlush(model));
+        return RequestMapper.fromModel(model);
     }
 
     public Collection<ParticipationRequestDto> getAllRequests(int initiatorId, int eventId) {
@@ -65,7 +65,6 @@ public class RequestService {
             throw new BadRequestException("wrong initiator");
         }
         model.setStatus(Status.CONFIRMED);
-        requestRepository.saveAndFlush(model);
         return RequestMapper.fromModel(model);
     }
 
@@ -79,7 +78,6 @@ public class RequestService {
             throw new BadRequestException("wrong initiator");
         }
         model.setStatus(Status.REJECTED);
-        requestRepository.saveAndFlush(model);
         return RequestMapper.fromModel(model);
     }
 }

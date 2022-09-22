@@ -36,9 +36,7 @@ public class UserService {
     }
 
     private Collection<EventShortDto> getActualEvents(User initiator) {
-        return userEventRepository.findByInitiator(initiator, null).stream()
-                .filter(e -> e.getState() == State.PUBLISHED)
-                .filter(e -> e.getEventDate().isAfter(LocalDateTime.now()))
+        return userEventRepository.findByInitiatorAndStateAndEventDateIsAfter(initiator, State.PUBLISHED, LocalDateTime.now()).stream()
                 .map(EventMapper::toShortDto)
                 .collect(Collectors.toList());
     }

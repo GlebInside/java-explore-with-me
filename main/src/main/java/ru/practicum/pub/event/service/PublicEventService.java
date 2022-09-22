@@ -12,7 +12,6 @@ import ru.practicum.dto.EventShortDto;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.pub.event.dto.EventSort;
 import ru.practicum.pub.event.storage.PublicEventRepository;
-import ru.practicum.statsClient.StatsClient;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -29,11 +28,6 @@ import static ru.practicum.pub.event.dto.EventSort.VIEWS;
 public class PublicEventService {
 
     private final PublicEventRepository publicEventRepository;
-    private final StatsClient statsClient;
-
-    public Collection<EventShortDto> getAll() {
-        return publicEventRepository.findAll().stream().map(EventMapper::toShortDto).collect(Collectors.toList());
-    }
 
     public Collection<EventShortDto> find(String text, State state, String[] strCategories, Boolean paid, LocalDateTime rangeStart, LocalDateTime rangeEnd, boolean onlyAvailable, EventSort eventSort, int from, int size) {
         int[] categories = null;
