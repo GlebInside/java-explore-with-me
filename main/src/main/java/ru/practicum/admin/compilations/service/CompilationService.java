@@ -52,16 +52,17 @@ public class CompilationService {
         return CompilationMapper.fromModel(repository.saveAndFlush(model));
     }
 
+    @Transactional
     public CompilationDto pin(int compilationId) {
         return setPinned(compilationId, true);
     }
 
+    @Transactional
     public CompilationDto unpin(int compilationId) {
         return setPinned(compilationId, false);
     }
 
-    @Transactional
-    public CompilationDto setPinned(int compilationId, boolean pinned) {
+    private CompilationDto setPinned(int compilationId, boolean pinned) {
         var model = repository.getReferenceById(compilationId);
         model.setPinned(pinned);
         return CompilationMapper.fromModel(model);

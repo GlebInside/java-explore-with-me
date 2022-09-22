@@ -2,6 +2,7 @@ package ru.practicum.exception;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -43,6 +44,12 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError entityNotFound(final EntityNotFoundException e) {
         return new ApiError(new String[]{}, e.getMessage(), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiError conflict(final DataIntegrityViolationException e) {
+        return new ApiError(new String[]{}, e.getMessage(), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value());
     }
 }
 

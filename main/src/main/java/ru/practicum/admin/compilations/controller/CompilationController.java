@@ -30,11 +30,7 @@ public class CompilationController {
 
     @PatchMapping("/{compilationId}/events/{eventId}")
     public CompilationDto addEvent(@PathVariable int compilationId, @PathVariable int eventId) {
-        try {
-            return compilationService.addEvent(compilationId, eventId);
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
+        return compilationService.addEvent(compilationId, eventId);
     }
 
     @PatchMapping("/{compilationId}/pin")
