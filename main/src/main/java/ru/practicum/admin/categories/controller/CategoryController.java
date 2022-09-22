@@ -21,11 +21,7 @@ public class CategoryController {
 
     @PostMapping
     public CategoryDto addNewCategory(@Validated(Create.class) @RequestBody CategoryDto categoryDto) {
-        try {
             return categoryService.addNew(categoryDto);
-        } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 
     @PatchMapping

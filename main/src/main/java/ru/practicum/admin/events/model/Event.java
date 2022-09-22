@@ -23,8 +23,8 @@ public class Event {
     @Column(length = 2000)
     @Size(min = 20, max = 2000)
     private String annotation;
-    @OneToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     private int confirmedRequests;
     @Column(insertable = false, updatable = false)
@@ -34,13 +34,13 @@ public class Event {
     @Size(min = 20, max = 7000)
     private String description;
     private LocalDateTime eventDate;
-    @OneToOne
-    @JoinColumn(name = "initiator_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "initiator_id", nullable = false)
     private User initiator;
-    private Boolean paid;
+    private boolean paid;
     private int participantLimit;
     private LocalDateTime publishedOn;
-    private Boolean requestModeration;
+    private boolean requestModeration;
     private State state = State.PENDING;
     @Column(length = 120)
     @Size(min = 3, max = 120)

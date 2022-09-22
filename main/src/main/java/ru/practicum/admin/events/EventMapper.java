@@ -45,13 +45,13 @@ public class EventMapper {
         dto.setId(model.getId());
         dto.setInitiator(UserMapper.shortDtoFromModel(model.getInitiator()));
         dto.setLocation(new Location(model.getLat(), model.getLon()));
-        dto.setPaid(model.getPaid());
+        dto.setPaid(model.isPaid());
         dto.setTitle(model.getTitle());
         dto.setViews(model.getViews());
         dto.setState(model.getState());
         dto.setPublishedOn(model.getPublishedOn());
         dto.setParticipantLimit(model.getParticipantLimit());
-        dto.setRequestModeration(model.getRequestModeration());
+        dto.setRequestModeration(model.isRequestModeration());
         return dto;
     }
 
@@ -63,7 +63,7 @@ public class EventMapper {
         dto.setConfirmedRequests(model.getConfirmedRequests());
         dto.setId(model.getId());
         dto.setInitiator(UserMapper.shortDtoFromModel(model.getInitiator()));
-        dto.setPaid(model.getPaid());
+        dto.setPaid(model.isPaid());
         dto.setTitle(model.getTitle());
         dto.setViews(model.getViews());
         return dto;
