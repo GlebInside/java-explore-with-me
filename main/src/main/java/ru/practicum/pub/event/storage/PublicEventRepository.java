@@ -20,5 +20,6 @@ public interface PublicEventRepository extends JpaRepository<Event, Integer> {
             "", nativeQuery = true)
     Collection<Event> find(int published, boolean onlyAvailable, boolean textProvided, String text, boolean categoriesProvided, int[] categories, boolean paidProvided, Boolean paid, boolean rangeStartProvided, LocalDateTime rangeStart, boolean rangeEndProvided, LocalDateTime rangeEnd, PageRequest pageRequest);
 
-    Collection<Event> findEventsByCategoryId(int categoryId);
+    int countByCategoryId(int categoryId);
+
 }

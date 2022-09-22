@@ -32,11 +32,9 @@ public class CategoryService {
         return CategoryMapper.fromModel(category);
     }
 
+    @Transactional
     public void delete(int catId) {
-        var events = eventService.findEventsByCategoryId(catId);
-        if (events.size() != 0) {
-            throw new BadRequestException("Can't delete used category");
-        }
+        var events = eventService.countByCategoryId(catId);
         categoryRepository.delete(categoryRepository.getReferenceById(catId));
     }
 

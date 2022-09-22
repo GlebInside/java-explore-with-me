@@ -75,8 +75,8 @@ public class PublicEventService {
         return EventMapper.toFullDto(model);
     }
 
-    public Collection<Event> findEventsByCategoryId(int categoryId) {
-        return publicEventRepository.findEventsByCategoryId(categoryId);
+    public int countByCategoryId(int categoryId) {
+        return publicEventRepository.countByCategoryId(categoryId);
     }
 
 }
