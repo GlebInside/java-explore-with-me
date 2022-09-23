@@ -29,7 +29,7 @@ public class AdminEventController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeStart,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeEnd,
             @RequestParam(defaultValue = "0") int from,
-            @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
+            @RequestParam(defaultValue = "10") int size) {
         return eventService.find(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
