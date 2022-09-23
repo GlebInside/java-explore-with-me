@@ -25,14 +25,11 @@ public class AdminEventController {
     private Collection<EventFullDto> find(
             @RequestParam(required = false) int[] users,
             @RequestParam(required = false) State[] states,
-            @RequestParam(required = false) String[] categories,
+            @RequestParam(required = false) int[] categories,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeStart,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime rangeEnd,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
-        if (users == null) {
-            users = new int[]{};
-        }
         return eventService.find(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 

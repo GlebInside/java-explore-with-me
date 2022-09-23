@@ -69,16 +69,22 @@ public class AdminEventService {
     public Collection<EventFullDto> find(
             int[] initiators,
             State[] states,
-            String[] categories,
+            int[] categories,
             LocalDateTime rangeStart,
             LocalDateTime rangeEnd,
             int from,
             int size) {
-//        var users = Arrays.stream(initiators).mapToObj(x -> userRepository.getReferenceById(x)).collect(Collectors.toList());
+        if (initiators == null) {
+            initiators = new int[]{};
+        }
         List<String> statesList = states != null ? Arrays.stream(states).map(Enum::name).collect(Collectors.toList()) : List.of();
+        if (categories == null) {
+            categories = new int[]{};
+        }
         return eventRepository.find(
                         initiators.length > 0, initiators,
-                        states != null, statesList
+                        statesList.size() > 0, statesList,
+                        categories.length > 0, categories
                 ).stream()
                 .map(EventMapper::toFullDto).collect(Collectors.toList());
     }
