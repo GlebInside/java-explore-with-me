@@ -12,7 +12,6 @@ import ru.practicum.admin.events.model.State;
 import ru.practicum.admin.events.storage.AdminEventRepository;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.exception.BadRequestException;
-import ru.practicum.priv.users.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -29,8 +28,6 @@ public class AdminEventService {
     private final AdminEventRepository eventRepository;
 
     private final CategoryRepository categoryRepository;
-
-    private final UserRepository userRepository;
 
     public Collection<EventFullDto> find() {
         return eventRepository.findAll().stream().sorted(Comparator.comparing(Event::getId).reversed()).map(EventMapper::toFullDto).collect(Collectors.toList());
