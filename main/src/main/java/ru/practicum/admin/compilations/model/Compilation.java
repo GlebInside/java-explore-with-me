@@ -7,7 +7,7 @@ import ru.practicum.admin.events.model.Event;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,7 +20,7 @@ public class Compilation {
     private int id;
     @ManyToMany
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "event_id"), joinColumns = @JoinColumn(name = "compilation_id"), uniqueConstraints = {@UniqueConstraint(name = "unique_compilation_event", columnNames = {"event_id", "compilation_id"})})
-    private List<Event> events;
+    private Set<Event> events;
     private boolean pinned;
     @Column(nullable = false)
     @Size(max = 100)

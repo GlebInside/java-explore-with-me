@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.compilations.CompilationMapper;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
+import ru.practicum.admin.events.model.Event;
 import ru.practicum.dto.CompilationDto;
 import ru.practicum.pub.event.storage.PublicEventRepository;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class CompilationService {
 
     @Transactional
     public CompilationDto addNew(NewCompilationDto dto) {
-        var events = publicEventRepository.findAllById(dto.getEvents());
+        var events = new HashSet<>(publicEventRepository.findAllById(dto.getEvents()));
         var model = CompilationMapper.createFromDto(dto, events);
         var added = repository.saveAndFlush(model);
         return CompilationMapper.fromModel(added);
@@ -37,7 +39,7 @@ public class CompilationService {
     public void deleteEvent(int id, int eventId) {
         var model = repository.getReferenceById(id);
         var events = model.getEvents();
-        var filtered = events.stream().filter(e -> e.getId() != eventId).collect(Collectors.toList());
+        var filtered = events.stream().filter(e -> e.getId() != eventId).collect(Collectors.toSet());
         model.setEvents(filtered);
         repository.saveAndFlush(model);
     }

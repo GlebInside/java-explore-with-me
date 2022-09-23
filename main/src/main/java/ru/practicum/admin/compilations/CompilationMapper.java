@@ -3,17 +3,17 @@ package ru.practicum.admin.compilations;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
-import ru.practicum.dto.CompilationDto;
 import ru.practicum.admin.compilations.model.Compilation;
 import ru.practicum.admin.events.EventMapper;
-import ru.practicum.dto.EventShortDto;
 import ru.practicum.admin.events.model.Event;
+import ru.practicum.dto.CompilationDto;
+import ru.practicum.dto.EventShortDto;
 
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompilationMapper {
-    public static Compilation createFromDto(NewCompilationDto dto, List<Event> events) {
+    public static Compilation createFromDto(NewCompilationDto dto, Set<Event> events) {
         var model = new Compilation();
         model.setEvents(events);
         model.setPinned(dto.isPinned());
