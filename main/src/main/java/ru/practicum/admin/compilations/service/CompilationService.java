@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.compilations.CompilationMapper;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.storage.CompilationRepository;
-import ru.practicum.admin.events.model.Event;
 import ru.practicum.dto.CompilationDto;
 import ru.practicum.pub.event.storage.PublicEventRepository;
 

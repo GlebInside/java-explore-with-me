@@ -9,7 +9,6 @@ import ru.practicum.admin.events.model.State;
 import ru.practicum.admin.events.service.AdminEventService;
 import ru.practicum.dto.EventFullDto;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
