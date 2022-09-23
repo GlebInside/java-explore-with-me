@@ -2,12 +2,10 @@ package ru.practicum.admin.compilations.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.dto.CompilationDto;
 import ru.practicum.admin.compilations.dto.NewCompilationDto;
 import ru.practicum.admin.compilations.service.CompilationService;
-import ru.practicum.exception.BadRequestException;
+import ru.practicum.dto.CompilationDto;
 
 import javax.validation.Valid;
 

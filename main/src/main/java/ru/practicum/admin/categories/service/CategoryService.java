@@ -7,7 +7,6 @@ import ru.practicum.admin.categories.CategoryMapper;
 import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.dto.CategoryDto;
-import ru.practicum.exception.BadRequestException;
 import ru.practicum.pub.event.service.PublicEventService;
 
 @RequiredArgsConstructor

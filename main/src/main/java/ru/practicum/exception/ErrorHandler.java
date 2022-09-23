@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class ErrorHandler {
 
-//    @ExceptionHandler
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiError handleInternalServerError(final Throwable e) {
         return new ApiError(new String[]{}, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), HttpStatus.INTERNAL_SERVER_ERROR.value());

@@ -12,7 +12,7 @@ public class UserMapper {
         var model = new User();
         model.setName(dto.getName());
         model.setEmail(dto.getEmail());
-        if(dto.getId() != null) {
+        if (dto.getId() != null) {
             model.setId(dto.getId());
         }
         return model;
