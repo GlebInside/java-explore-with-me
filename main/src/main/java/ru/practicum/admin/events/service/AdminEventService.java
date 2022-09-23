@@ -1,6 +1,7 @@
 package ru.practicum.admin.events.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.categories.storage.CategoryRepository;
@@ -84,7 +85,11 @@ public class AdminEventService {
         return eventRepository.find(
                         initiators.length > 0, initiators,
                         statesList.size() > 0, statesList,
-                        categories.length > 0, categories
+                        categories.length > 0, categories,
+                        rangeStart != null, rangeStart,
+                        rangeEnd != null, rangeEnd,
+                        PageRequest.of(from, size)
+
                 ).stream()
                 .map(EventMapper::toFullDto).collect(Collectors.toList());
     }
