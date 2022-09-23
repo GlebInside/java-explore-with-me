@@ -38,7 +38,7 @@ public class PublicEventService {
             rangeStart = LocalDateTime.now();
         }
         var events = publicEventRepository.find(
-                state.ordinal(), onlyAvailable, text != null, text != null ? text.toLowerCase() : null, strCategories != null, categories, paid != null, paid, rangeStart != null, rangeStart, rangeEnd != null, rangeEnd, PageRequest.of(from, size)
+                state.name(), onlyAvailable, text != null, text != null ? text.toLowerCase() : null, strCategories != null, categories, paid != null, paid, rangeStart != null, rangeStart, rangeEnd != null, rangeEnd, PageRequest.of(from, size)
         ).stream().map(EventMapper::toShortDto);
         if (eventSort != null) {
             if (eventSort == EVENT_DATE) {

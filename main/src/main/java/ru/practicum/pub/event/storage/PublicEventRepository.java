@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public interface PublicEventRepository extends JpaRepository<Event, Integer> {
     @Query(value = "select * from Event e where" +
-            " e.state = :published" +
+            " e.state = :state" +
             " and ((:onlyAvailable = false) or (e.confirmed_requests < e.participant_limit))" +
             " and ((:textProvided = false ) or (lower(e.annotation) like %:text% or lower(e.description) like %:text%))" +
             " and ((:categoriesProvided = false ) or (e.category_id in (:categories)))" +
@@ -18,7 +18,7 @@ public interface PublicEventRepository extends JpaRepository<Event, Integer> {
             " and ((:rangeStartProvided = false) or (e.event_date >= :rangeStart))" +
             " and ((:rangeEndProvided = false) or (e.event_date <= :rangeEnd))" +
             "", nativeQuery = true)
-    Collection<Event> find(int published, boolean onlyAvailable, boolean textProvided, String text, boolean categoriesProvided, int[] categories, boolean paidProvided, Boolean paid, boolean rangeStartProvided, LocalDateTime rangeStart, boolean rangeEndProvided, LocalDateTime rangeEnd, PageRequest pageRequest);
+    Collection<Event> find(String state, boolean onlyAvailable, boolean textProvided, String text, boolean categoriesProvided, int[] categories, boolean paidProvided, Boolean paid, boolean rangeStartProvided, LocalDateTime rangeStart, boolean rangeEndProvided, LocalDateTime rangeEnd, PageRequest pageRequest);
 
     int countByCategoryId(int categoryId);
 

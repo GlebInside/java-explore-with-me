@@ -41,6 +41,7 @@ public class Event {
     private int participantLimit;
     private LocalDateTime publishedOn;
     private boolean requestModeration;
+    @Enumerated(EnumType.STRING)
     private State state = State.PENDING;
     @Column(length = 120)
     @Size(min = 3, max = 120)
