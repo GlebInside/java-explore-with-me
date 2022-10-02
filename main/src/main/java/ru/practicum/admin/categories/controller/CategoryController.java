@@ -1,0 +1,34 @@
+package ru.practicum.admin.categories.controller;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import ru.practicum.Create;
+import ru.practicum.Update;
+import ru.practicum.admin.categories.service.CategoryService;
+import ru.practicum.dto.CategoryDto;
+
+@RestController
+@RequestMapping(path = "/admin/categories")
+@Slf4j
+@RequiredArgsConstructor
+public class CategoryController {
+
+    private final CategoryService categoryService;
+
+    @PostMapping
+    public CategoryDto addNewCategory(@Validated(Create.class) @RequestBody CategoryDto categoryDto) {
+            return categoryService.addNew(categoryDto);
+    }
+
+    @PatchMapping
+    public CategoryDto updateCategory(@Validated(Update.class) @RequestBody CategoryDto categoryDto) {
+        return categoryService.update(categoryDto);
+    }
+
+    @DeleteMapping("/{catId}")
+    public void deleteCategory(@PathVariable int catId) {
+        categoryService.delete(catId);
+    }
+}
