@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 @Service
@@ -38,9 +39,12 @@ public class StatsClient extends BaseClient {
 
     public ViewStats getStats(LocalDateTime start, LocalDateTime end, String uri) throws JsonProcessingException {
         var objectMapper = new ObjectMapper();
-        var e = get("/stats", null, Map.of("start", start.toString(), "end", end, "uris", uri));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedEnd = end.format(formatter);
+        String formattedStart = start.format(formatter);
+        var e = get("/stats", null, Map.of("start", formattedStart, "end", formattedEnd, "uris", uri));
         var json = e.getBody();
-        var viewStats = objectMapper.readValue((String) json, ViewStats[].class);
+        var viewStats = objectMapper.readValue(json, ViewStats[].class);
         return viewStats[0];
     }
 }
