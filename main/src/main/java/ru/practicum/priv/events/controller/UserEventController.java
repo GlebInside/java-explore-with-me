@@ -44,9 +44,8 @@ public class UserEventController {
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
-    public EventFullDto updateEvent(@RequestBody UpdateEventRequest dto, @PathVariable int userId, @PathVariable int eventId) {
-        dto.setEventId(eventId);
-        return userEventService.update(userId, dto);
+    public EventFullDto cancelEvent(@PathVariable int userId, @PathVariable int eventId) {
+        return userEventService.cancel(userId, eventId);
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")

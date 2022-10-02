@@ -71,4 +71,17 @@ public class UserEventService {
         }
         return EventMapper.toFullDto(model);
     }
+
+    @Transactional
+    public EventFullDto cancel(int userId, int eventId) {
+        var model = repository.getReferenceById(eventId);
+        if (model.getInitiator().getId() != userId) {
+            throw new BadRequestException("This event doesn't belong this user");
+        }
+        if (model.getState() == State.CANCELED) {
+            throw new BadRequestException("Event already canceled");
+        }
+        model.setState(State.CANCELED);
+        return EventMapper.toFullDto(model);
+    }
 }
