@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EventShortDto;
+import ru.practicum.priv.events.service.UserEventService;
 
 import java.util.Collection;
 
@@ -14,6 +15,7 @@ import java.util.Collection;
 public class UserController {
 
     private final UserService userService;
+    private final UserEventService userEventService;
 
     @PostMapping("/{subscriberId}/subscribe/{userId}")
     public void subscribe(@PathVariable int userId, @PathVariable int subscriberId) {
@@ -22,6 +24,6 @@ public class UserController {
 
     @GetMapping("/{subscriberId}/subscriptions/createdEvents")
     public Collection<EventShortDto> getSubscriptionCreatedEvents(@PathVariable int subscriberId) {
-        return userService.getSubscriptionCreatedEvents(subscriberId);
+        return userEventService.getSubscriptionCreatedEvents(subscriberId);
     }
 }
