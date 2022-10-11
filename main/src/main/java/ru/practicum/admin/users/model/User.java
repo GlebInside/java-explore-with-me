@@ -23,7 +23,7 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String name;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "subscriber_id"), joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(name = "unique_user_subscriber", columnNames = {"user_id", "subscriber_id"})})
     private List<User> subscribers;
 }

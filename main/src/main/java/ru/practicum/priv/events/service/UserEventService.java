@@ -8,6 +8,7 @@ import ru.practicum.admin.categories.model.Category;
 import ru.practicum.admin.categories.storage.CategoryRepository;
 import ru.practicum.admin.events.EventMapper;
 import ru.practicum.admin.events.model.State;
+import ru.practicum.admin.users.model.User;
 import ru.practicum.admin.users.storage.AdminUserRepository;
 import ru.practicum.dto.EventFullDto;
 import ru.practicum.dto.EventShortDto;
@@ -16,6 +17,7 @@ import ru.practicum.exception.BadRequestException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.priv.events.dto.UpdateEventRequest;
 import ru.practicum.priv.events.storage.UserEventRepository;
+import ru.practicum.priv.users.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -29,6 +31,7 @@ public class UserEventService {
     private final AdminUserRepository adminUserRepository;
     private final CategoryRepository categoryRepository;
     private final UserEventRepository repository;
+    private final UserRepository userRepository;
 
     @Transactional
     public EventFullDto addNew(int userId, NewEventDto dto) {
@@ -83,5 +86,17 @@ public class UserEventService {
         }
         model.setState(State.CANCELED);
         return EventMapper.toFullDto(model);
+    }
+
+    public Collection<EventShortDto> getSubscriptionCreatedEvents(int subscriberId) {
+        var users = userRepository.findBySubscribersId(subscriberId);
+
+        return users.stream().flatMap(u -> getActualEvents(u).stream()).collect(Collectors.toList());
+    }
+
+    private Collection<EventShortDto> getActualEvents(User initiator) {
+        return repository.findByInitiatorAndStateAndEventDateIsAfter(initiator, State.PUBLISHED, LocalDateTime.now()).stream()
+                .map(EventMapper::toShortDto)
+                .collect(Collectors.toList());
     }
 }

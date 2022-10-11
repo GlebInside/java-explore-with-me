@@ -38,7 +38,8 @@ public class BaseClient {
         var builder = UriComponentsBuilder.fromUriString(path);
         assert queryParameters != null;
         queryParameters.forEach(builder::queryParam);
-        path = builder.toUriString();
+        var components = builder.build();
+        path = components.toUriString();
         ResponseEntity<String> exploreWithMeServerResponse;
         try {
             if (uriParameters != null) {
